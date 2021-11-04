@@ -15,35 +15,8 @@ public class BoundedStack implements Stack {
         if (capacity < 0)
             throw new IllegalCapacity();
 
-        if (capacity == 0) {
-            return new Stack() {
+        if (capacity == 0) return new ZeroCapacityStack();
 
-                @Override
-                public boolean isEmpty() {
-                    return true;
-                }
-
-                @Override
-                public int getSize() {
-                    return 0;
-                }
-
-                @Override
-                public void push(int element) {
-                    throw new OverFlow();
-                }
-
-                @Override
-                public int pop() {
-                    throw new UnderFlow();
-                }
-
-                @Override
-                public int top()  {
-                    throw new ZeroCapacityAccess();
-                }
-            };
-        }
         return new BoundedStack(capacity);
     }
 
@@ -58,7 +31,7 @@ public class BoundedStack implements Stack {
     }
 
     @Override
-    public void push(int element)  {
+    public void push(int element) {
         if (size == capacity)
             throw new OverFlow();
         data[size++] = element;
@@ -80,12 +53,45 @@ public class BoundedStack implements Stack {
         return data[0];
     }
 
-    public static class OverFlow extends RuntimeException {
+    @Override
+    public int find(int i) {
+        for (int j = 0; j < size; j++)
+            if (data[j] == i)
+                return j;
+        throw new Stack.ElementNotFoundException();
     }
 
-    public static class UnderFlow extends RuntimeException {
-    }
 
-    public static class ZeroCapacityAccess extends RuntimeException {
+    private static class ZeroCapacityStack implements Stack {
+        @Override
+        public boolean isEmpty() {
+            return true;
+        }
+
+        @Override
+        public int getSize() {
+            return 0;
+        }
+
+        @Override
+        public void push(int element) {
+            throw new OverFlow();
+        }
+
+        @Override
+        public int pop() {
+            throw new UnderFlow();
+        }
+
+        @Override
+        public int top() {
+            throw new ZeroCapacityAccess();
+        }
+
+        @Override
+        public int find(int i) {
+            throw new ZeroCapacityAccess();
+        }
+
     }
 }

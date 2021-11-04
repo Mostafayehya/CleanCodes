@@ -78,11 +78,46 @@ public class StackTest {
         stack = BoundedStack.Make(0);
         stack.pop();
     }
+
     @Test(expected = BoundedStack.ZeroCapacityAccess.class)
     public void WhenCreateStackWithZeroCapacity_TopThrowsZeroCapacityAccessException() throws Exception {
         stack = BoundedStack.Make(0);
         stack.top();
     }
 
+    @Test(expected = Stack.ZeroCapacityAccess.class)
+    public void whenZeroCapacityStack_findThrowsZeroCapacityAccess() throws Exception {
+        stack = BoundedStack.Make(0);
+        stack.find(1);
+    }
+
+    @Test
+    public void whenOneIsPushed_ThenOneIsOnTop() throws Exception {
+        stack.push(1);
+        assertEquals(1, stack.top());
+    }
+
+    @Test
+    public void whenOneAndTwoArePushedThenTwoPushed_ThenOneIsOnTop() throws Exception {
+        stack.push(1);
+        stack.push(2);
+        stack.pop();
+        assertEquals(1, stack.top());
+
+    }
+
+    @Test
+    public void whenOneAndTwoArePushed_find2Return1() throws Exception {
+        stack.push(1);
+        stack.push(3);
+        assertEquals(1, stack.find(3));
+    }
+
+    @Test(expected = Stack.ElementNotFoundException.class)
+    public void whenFindElementThatDoesntExist_ThrowsElementNotFoundException() throws Exception {
+        stack.push(1);
+        stack.push(2);
+        stack.find(4);
+    }
 
 }
