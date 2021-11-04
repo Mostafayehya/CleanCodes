@@ -11,19 +11,19 @@ public class StackTest {
 
     @Before
     public void setUp() throws Exception {
-        stack = Stack.Make(2);
+        stack = BoundedStack.Make(2);
     }
 
     @Test
     public void newlyCreatedStack_ShouldBeEmpty() throws Exception {
         assertTrue(stack.isEmpty());
-        assertEquals(0,stack.getSize());
+        assertEquals(0, stack.getSize());
     }
 
     @Test
     public void AfterOnePush_StackSizeShouldBeOne() throws Exception {
         stack.push(1);
-        assertEquals(1,stack.getSize());
+        assertEquals(1, stack.getSize());
         assertFalse(stack.isEmpty());
     }
 
@@ -34,23 +34,23 @@ public class StackTest {
         assertTrue(stack.isEmpty());
     }
 
-    @Test(expected = Stack.OverFlow.class)
+    @Test(expected = BoundedStack.OverFlow.class)
     public void WhenPushedBeyondTheStackSize_StackOverFlowError() throws Exception {
         stack.push(1);
         stack.push(1);
         stack.push(1);
     }
 
-    @Test(expected = Stack.UnderFlow.class)
+    @Test(expected = BoundedStack.UnderFlow.class)
     public void WhenEmptyStackIsPopped_ShouldThrowStackUnderFlow() throws Exception {
-        stack = Stack.Make(0);
+        stack = BoundedStack.Make(0);
         stack.pop();
     }
 
     @Test
     public void WhenOneIsPushed_OneIsPopped() throws Exception {
         stack.push(1);
-        assertEquals(1,stack.pop());
+        assertEquals(1, stack.pop());
 
     }
 
@@ -58,13 +58,31 @@ public class StackTest {
     public void WhenOneAndTwoArePushed_TwoAndOneArePushed() throws Exception {
         stack.push(1);
         stack.push(2);
-        assertEquals(2,stack.pop());
-        assertEquals(1,stack.pop());
+        assertEquals(2, stack.pop());
+        assertEquals(1, stack.pop());
     }
 
-    @Test(expected = Stack.IllegalCapacity.class)
+    @Test(expected = BoundedStack.IllegalCapacity.class)
     public void WhenCreateAStackWithNegativeSize_ShouldThrowIllegalCapacity() throws Exception {
-        Stack.Make(-1);
+        BoundedStack.Make(-1);
     }
+
+    @Test(expected = BoundedStack.OverFlow.class)
+    public void WhenCreateStackWithZeroCapacity_PushThrowsOverFlowException() throws Exception {
+        stack = BoundedStack.Make(0);
+        stack.push(1);
+    }
+
+    @Test(expected = BoundedStack.UnderFlow.class)
+    public void WhenCreateStackWithZeroCapacity_PopThrowsUnderFlowException() throws Exception {
+        stack = BoundedStack.Make(0);
+        stack.pop();
+    }
+    @Test(expected = BoundedStack.ZeroCapacityAccess.class)
+    public void WhenCreateStackWithZeroCapacity_TopThrowsZeroCapacityAccessException() throws Exception {
+        stack = BoundedStack.Make(0);
+        stack.top();
+    }
+
 
 }

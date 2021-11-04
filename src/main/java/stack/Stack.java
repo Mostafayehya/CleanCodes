@@ -1,48 +1,16 @@
 package stack;
 
-public class Stack {
-    private boolean isEmpty = true;
-    private int capacity;
-    private int size = 0;
-    private int[] data;
+public interface Stack {
 
-    public static Stack Make(int capacity) {
-        if (capacity < 0)
-            throw new IllegalCapacity();
-        return new Stack(capacity);
-    }
+    boolean isEmpty();
 
-    private Stack(int capacity) {
-        this.capacity = capacity;
-        data = new int[capacity];
-    }
+    int getSize();
 
-    public boolean isEmpty() {
-        return size <= 0;
-    }
+    void push(int element) ;
 
-    public int getSize() {
-        return size;
-    }
+    int pop();
 
-    public void push(int element) throws OverFlow {
-        if (size == capacity)
-            throw new OverFlow();
-        data[size++] = element;
-    }
-
-    public int pop() {
-        if (isEmpty())
-            throw new UnderFlow();
-
-        return data[--size];
-    }
-
-    public class OverFlow extends RuntimeException {
-    }
-
-    public class UnderFlow extends RuntimeException {
-    }
+    int top() throws RuntimeException;
 
     public static class IllegalCapacity extends RuntimeException {
     }
