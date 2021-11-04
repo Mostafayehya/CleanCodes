@@ -1,4 +1,4 @@
-package stack;
+package fundamentals.functions.stack;
 
 public interface Stack {
 

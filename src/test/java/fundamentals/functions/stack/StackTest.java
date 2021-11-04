@@ -1,4 +1,4 @@
-package stack;
+package fundamentals.functions.stack;
 
 import org.junit.Before;
 import org.junit.Test;
