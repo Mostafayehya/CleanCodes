@@ -41,15 +41,12 @@ public class BoundedStack implements Stack {
     public int pop() {
         if (isEmpty())
             throw new UnderFlow();
-
         return data[--size];
     }
 
     @Override
     public int top() throws RuntimeException {
-
         if (capacity <= 0) throw new ZeroCapacityAccess();
-
         return data[0];
     }
 

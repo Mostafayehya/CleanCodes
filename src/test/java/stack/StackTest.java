@@ -111,6 +111,7 @@ public class StackTest {
         stack.push(1);
         stack.push(3);
         assertEquals(1, stack.find(3));
+        assertEquals(0, stack.find(1));
     }
 
     @Test(expected = Stack.ElementNotFoundException.class)
