@@ -1,38 +1,31 @@
 package fundamentals.functions.form;
 
-import com.sun.xml.internal.ws.util.StringUtils;
-
-import java.util.Arrays;
+import java.math.BigInteger;
 
 public class LychrelGenerator {
 
-    public int convergesAtIteration(int n, int limit) {
-        if (!isPalindrome(n)) {
-            int r = reverse(n);
-            int sum = n + r;
-            if (!isPalindrome(sum))
-                return 2;
-            else
-                return 1;
-        } else {
-            return 0;
-        }
+    public int convergesAtIteration(BigInteger n, int iteration, int limit) {
+        if (!isPalindrome(n) && iteration < limit)
+            return convergesAtIteration(n.add(reverse(n)), iteration + 1, limit);
+        else
+            return iteration;
     }
 
-    public int reverse(int n) {
-        char[] nDigits = Integer.toString(n).toCharArray();
+
+    public BigInteger reverse(BigInteger n) {
+        char[] nDigits = n.toString().toCharArray();
         char[] rDigits = new char[nDigits.length];
         int lastIndex = nDigits.length - 1;
 
         for (int i = 0; i < nDigits.length; i++)
             rDigits[i] = nDigits[lastIndex - i];
 
-        int reversedInteger = Integer.valueOf(String.valueOf(rDigits));
+        BigInteger reversedInteger = new BigInteger(String.valueOf(rDigits));
         return reversedInteger;
     }
 
-    public boolean isPalindrome(int n) {
-        String digits = Integer.toString(n);
+    public boolean isPalindrome(BigInteger n) {
+        String digits = n.toString();
         int lastIndex = digits.length() - 1;
         for (int i = 0; i < digits.length(); i++) {
             if (digits.charAt(i) != digits.charAt(lastIndex - i))
