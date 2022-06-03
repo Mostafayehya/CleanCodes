@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.math.BigInteger;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -47,6 +48,58 @@ public class LychrelTest {
         isPalindrome(121);
         isPalindrome(121);
         isPalindrome(12321);
+    }
+
+    @Test
+    public void twoDimentionalArrays() throws Exception {
+
+        int n = 3, m = 6;
+        int[][] two = new int[n][m];
+        int counter = 0;
+        for(int i = 0 ; i < n ; i++){
+            for (int j = 0; j <m ; j++) {
+                two[i][j] = counter;
+                counter++;
+                System.out.printf("two[%d][%d] = %d\n",i,j,counter);
+            }
+        }
+
+        System.out.printf("two.length = %d",two.length);
+        System.out.printf("two[0].length = %d",two[0].length);
+        System.out.printf("two[3][0=.length = %d",two[2].length);
+
+    }
+
+    @Test
+    public void testSet() throws Exception {
+
+        Map<String,Integer> resultsMap = new HashMap<>();
+        resultsMap.put("mo", 1);
+        resultsMap.put("ye", 2);
+        resultsMap.put("ah", 3);
+        Integer maxValue = Collections.max(resultsMap.values());
+
+        StringBuilder stringBuilder = new StringBuilder();
+        resultsMap.forEach((k,v) ->{
+            if(v == maxValue){
+
+                stringBuilder.append(k);
+            }
+        });
+
+        List<Integer[]> integerArrays = new ArrayList<>();
+        integerArrays.add(new Integer[]{-6,1,5});
+        integerArrays.add(new Integer[]{-8,3,5});
+        integerArrays.add(new Integer[]{-8,2,6});
+
+        integerArrays.sort((o1, o2) -> o1[0].compareTo(o2[0])
+                + o1[1].compareTo(o2[1])
+                + o1[2].compareTo(o2[2]));
+
+        integerArrays.forEach(integers -> {
+            System.out.println();
+            Arrays.stream(integers).forEach(System.out::println);
+        });
     }
 
     private void isPalindrome(int n) {
