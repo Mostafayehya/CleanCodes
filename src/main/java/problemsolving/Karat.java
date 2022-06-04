@@ -1,7 +1,5 @@
 package problemsolving;
 
-import com.sun.javaws.IconUtil;
-
 import java.util.*;
 
 public class Karat {
@@ -155,16 +153,42 @@ public class Karat {
         }
     }
 
-    public static class Disappear{
+    public static class ThirdSet_FirstProblem_Get_Grociories{
 
-        public int disappear(int[][] grid,int x, int y){
-            int p = 0 ;
+        public static int getGroceries(String[][] products, String[] list){
 
-            int k = grid[x][y];
-            System.out.println(k);
+            Map<String, String> productsMap = new HashMap<>();
 
-            int row = grid.length;
-            int col = grid[0].length;
+            for (int i = 0 ; i < products.length;i++){
+                productsMap.put(products[i][0],products[i][1]);
+            }
+
+            int inOrderCount = countInOrder(productsMap,list);
+            int groupedCount = countInGroup(productsMap,list);
+            return Math.abs(inOrderCount - groupedCount);
+        }
+
+        private static int countInGroup(Map<String,String> productsMap, String[] list) {
+            Set<String> categories = new HashSet<>();
+
+            for (String item : list) {
+                categories.add(productsMap.get(item));
+            }
+
+            return categories.size();
+        }
+
+        private static int countInOrder(Map<String,String> map,String[] list) {
+            int count=1;
+
+            for (int i = 1; i < list.length; i++) {
+                String currentProduct = list[i];
+                String prevProduct = list[i-1];
+                if(!map.get(currentProduct).equals(map.get(prevProduct))){
+                    count++;
+                }
+            }
+            return count;
 
         }
     }

@@ -4,10 +4,8 @@ package problemsolving;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.*;
+import static problemsolving.Karat.ThirdSet_FirstProblem_Get_Grociories.*;
 
 public class KaratTest {
     String[] words;
@@ -20,6 +18,24 @@ public class KaratTest {
             {'o','a','a','a','o','o'},
             {'k','a','i','c','k','i'},
     };
+    String[][] products={
+            {"Cheese","Diary"},
+            {"Carrots","Produce"},
+            {"Potatoes","Produce"},
+            {"Canned Tuna","Pantry"},
+            {"Romaine Lettuce","Produce"},
+            {"Chocolate Milk","Diary"},
+            {"Flour","Pantry"},
+            {"Iceberg Lettuce","Produce"},
+            {"Coffee","Pantry"},
+            {"Pasta","Pantry"},
+            {"Milk","Diary"},
+            {"Blueberries","Produce"},
+            {"Pasta Sauce","Pantry"},
+
+    };
+
+
 
     @Before
     public void setUp() throws Exception {
@@ -105,4 +121,16 @@ public class KaratTest {
         assertFalse(Karat.SeconSet_FirstProblem.isCompleteHand("1111111"));
         assertFalse(Karat.SeconSet_FirstProblem.isCompleteHand("1111122222"));
     }
+
+    @Test
+    public void thirdSet_firstProblem_getGrocieres() throws Exception {
+
+        assertTrue(getGroceries(products, new String[]{"Blueberries", "Milk", "Coffee", "Flour", "Cheese", "Carrots"}) == 2);
+        assertTrue(getGroceries(products, new String[]{"Blueberries", "Carrots", "Coffee", "Milk", "Flour", "Cheese"}) == 2);
+        assertTrue(getGroceries(products, new String[]{"Blueberries", "Carrots", "Romaine Lettuce", "Iceberg Lettuce"}) == 0);
+        assertTrue(getGroceries(products, new String[]{"Milk", "Flour", "Chocolate Milk", "Pasta Sauce"}) == 2);
+       assertTrue(getGroceries(products,new String[]{"Cheese", "Potatoes", "Blueberries", "Canned Tuna"}) == 0);
+
+    }
+
 }
