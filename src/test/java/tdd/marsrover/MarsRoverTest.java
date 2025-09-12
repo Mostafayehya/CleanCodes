@@ -1,16 +1,103 @@
 package tdd.marsrover;
 
 import org.junit.Test;
+import tdd.marsrover.exceptions.IllegalRoverCommandExeption;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MarsRoverTest {
 
 
     @Test
-    public void createSimpleGrid() {
+    public void createSimpleGridTest() {
         int[] grid = createGrid(5, 5);
         assertTrue(grid[0] >= 0 && grid[1] >= 0);
+    }
+
+
+    @Test
+    public void moveRoverToLeftTest() {
+        Rover rover = new Rover(0, 0, "N");
+        rover.doCommand("L");
+        assertEquals("W", rover.getDirection());
+    }
+
+    @Test
+    public void moveRoverToRightTest() {
+        Rover rover = new Rover(0, 0, "N");
+        rover.doCommand("R");
+        assertEquals("E", rover.getDirection());
+
+        rover.setDirection("S");
+        rover.doCommand("R");
+        assertEquals("W", rover.getDirection());
+
+        rover.setDirection("W");
+        rover.doCommand("R");
+        assertEquals("N", rover.getDirection());
+
+    }
+
+    @Test
+    public void moveRoverTest() {
+        Rover rover = new Rover(0, 0, "N");
+        rover.doCommand("M");
+        assertEquals(1, rover.getY());
+        assertEquals(0, rover.getX());
+
+        rover.doCommand("M");
+        assertEquals(2, rover.getY());
+        assertEquals(0, rover.getX());
+    }
+
+    @Test
+    public void moveRoverAllDirectionsTest() {
+        Rover rover = new Rover(0, 0, "E");
+        rover.doCommand("M");
+        assertEquals(1, rover.getX());
+        assertEquals(0, rover.getY());
+    }
+
+    @Test
+    public void mutliCommandStringTest() {
+        Rover rover = new Rover(0, 0, "N");
+        rover.doCommand("MM");
+        assertEquals(2, rover.getY());
+    }
+
+    @Test
+    public void marsRoverAcceptanceTest() {
+        Rover rover = new Rover(1, 2, "N");
+        rover.doCommand("LMLMLMLMM");
+        assertEquals(1, rover.getX());
+        assertEquals(3, rover.getY());
+        assertEquals("N", rover.getDirection());
+    }
+
+    @Test
+    public void marsRoverAcceptanceTest2() {
+        Rover rover = new Rover(3, 3, "E");
+        rover.doCommand("MMRMMRMRRM");
+        assertEquals(5, rover.getX());
+        assertEquals(1, rover.getY());
+        assertEquals("E", rover.getDirection());
+    }
+
+    @Test
+    public void rotateMoveTest() {
+        Rover rover = new Rover(1, 2, "N");
+        rover.doCommand("LM");
+        assertEquals(0, rover.getX());
+        assertEquals(2, rover.getY());
+        assertEquals("W", rover.getDirection());
+    }
+
+    @Test
+    public void illegalMoveTest() {
+        Rover rover = new Rover(1, 2, "N");
+        assertThrows(IllegalRoverCommandExeption.class,
+                () -> rover.doCommand("k")
+        );
     }
 
     public int[] createGrid(int x, int y) {
