@@ -5,10 +5,18 @@ import tdd.marsrover.exceptions.IllegalRoverCommandException;
 public class Rover {
     private Direction direction;
     private Position position;
+    private Grid grid;
 
     public Rover(Position position, Direction direction) {
         this.position = position;
         this.direction = direction;
+        this.grid = new Grid(5, 5); // Default grid
+    }
+
+    public Rover(Position position, Direction direction, Grid grid) {
+        this.position = position;
+        this.direction = direction;
+        this.grid = grid;
     }
 
 
@@ -37,20 +45,8 @@ public class Rover {
     }
 
     private void move() {
-        switch (direction) {
-            case NORTH:
-                position.moveNorth();
-                break;
-            case SOUTH:
-                position.moveSouth();
-                break;
-            case EAST:
-                position.moveEast();
-                break;
-            case WEST:
-                position.moveWest();
-                break;
-        }
+        Position newPosition = position.move(direction);
+        position = grid.wrapPosition(newPosition);
     }
 
 

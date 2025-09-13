@@ -1,9 +1,10 @@
 package tdd.marsrover;
 
-public class Position {
-    private  Grid grid = new Grid(5, 5);
-    private int x;
-    private int y;
+import java.util.Objects;
+
+public final class Position {
+    private final int x;
+    private final int y;
 
     public Position(int x, int y) {
         this.x = x;
@@ -11,47 +12,65 @@ public class Position {
     }
 
     public Position(int x, int y, Grid grid) {
-        this.x = x;
-        this.y = y;
-        this.grid = grid;
+        // For backward compatibility with tests
+        this(x, y);
     }
 
     public int getX() {
-        return this.x;
+        return x;
     }
 
     public int getY() {
         return y;
     }
 
-    public void moveNorth() {
-        y += 1;
-        if (y >= grid.yBoundary() + 1) {
-            y -= grid.yBoundary() + 1;
+    public Position move(Direction direction) {
+        switch (direction) {
+            case NORTH:
+                return new Position(x, y + 1);
+            case SOUTH:
+                return new Position(x, y - 1);
+            case EAST:
+                return new Position(x + 1, y);
+            case WEST:
+                return new Position(x - 1, y);
+            default:
+                return this;
         }
+    }
+
+    // Legacy methods for backward compatibility - will be removed later
+    public void moveNorth() {
+        throw new UnsupportedOperationException("Use move(Direction.NORTH) instead");
     }
 
     public void moveSouth() {
-        y -= 1;
-
-        if (y < 0) {
-            y += grid.yBoundary() + 1;
-        }
-
+        throw new UnsupportedOperationException("Use move(Direction.SOUTH) instead");
     }
 
     public void moveEast() {
-        x += 1;
-        if (x >= grid.xBoundary() + 1) {
-            x -= grid.xBoundary() + 1;
-        }
+        throw new UnsupportedOperationException("Use move(Direction.EAST) instead");
     }
 
     public void moveWest() {
-        x -= 1;
-        if (x < 0) {
-            x += grid.xBoundary() + 1;
-        }
+        throw new UnsupportedOperationException("Use move(Direction.WEST) instead");
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return x == position.x && y == position.y;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(x, y);
+    }
+
+    @Override
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
 }
