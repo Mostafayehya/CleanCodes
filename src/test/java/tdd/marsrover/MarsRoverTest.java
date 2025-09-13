@@ -1,7 +1,7 @@
 package tdd.marsrover;
 
 import org.junit.Test;
-import tdd.marsrover.exceptions.IllegalRoverCommandExeption;
+import tdd.marsrover.exceptions.IllegalRoverCommandException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -88,7 +88,7 @@ public class MarsRoverTest {
     @Test
     public void illegalMoveTest() {
         Rover rover = new Rover(1, 2, "N");
-        assertThrows(IllegalRoverCommandExeption.class,
+        assertThrows(IllegalRoverCommandException.class,
                 () -> rover.doCommand("k")
         );
     }
