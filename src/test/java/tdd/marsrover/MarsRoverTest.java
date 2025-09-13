@@ -9,13 +9,6 @@ public class MarsRoverTest {
 
 
     @Test
-    public void createSimpleGridTest() {
-        int[] grid = createGrid(5, 5);
-        assertTrue(grid[0] >= 0 && grid[1] >= 0);
-    }
-
-
-    @Test
     public void moveRoverToLeftTest() {
         Rover rover = new Rover(0, 0, "N");
         rover.doCommand("L");
@@ -100,7 +93,27 @@ public class MarsRoverTest {
         );
     }
 
-    public int[] createGrid(int x, int y) {
-        return new int[]{x, y};
+    @Test
+    public void roverWestBoundryTest(){
+        Rover rover = new Rover(0, 0, "N",5,5);
+        rover.doCommand("LM");
+        assertEquals(5, rover.getX());
+        assertEquals(0, rover.getY());
+    }
+
+    @Test
+    public void roverHitEastBoundryTest(){
+        Rover rover = new Rover(5, 0, "N",5,5);
+        rover.doCommand("RM");
+        assertEquals(0, rover.getX());
+        assertEquals(0, rover.getY());
+    }
+
+    @Test
+    public void roverHitNorthBoundryTest(){
+        Rover rover = new Rover(0, 5, "N");
+        rover.doCommand("M");
+        assertEquals(0, rover.getX());
+        assertEquals(0, rover.getY());
     }
 }

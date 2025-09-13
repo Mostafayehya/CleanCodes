@@ -6,11 +6,21 @@ public class Rover {
     private String direction;
     private int y;
     private int x;
+    private int xBoundry = 5;
+    private int yBoundry = 5;
 
     public Rover(int x, int y, String direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
+    }
+
+    public Rover(int x, int y, String direction, int xBoundry, int yBoundry) {
+        this.x = x;
+        this.y = y;
+        this.direction = direction;
+        this.xBoundry = xBoundry;
+        this.yBoundry = yBoundry;
     }
 
 
@@ -26,14 +36,13 @@ public class Rover {
     public void doCommand(String commandLine) {
         final String[] commands = commandLine.split("");
 
-        for(String command : commands) {
+        for (String command : commands) {
             if (command.equals("M")) {
                 move();
             } else if (command.equals("L") || command.equals("R")) {
                 rotate(command);
-            }
-            else {
-                throw new  IllegalRoverCommandExeption();
+            } else {
+                throw new IllegalRoverCommandExeption();
             }
         }
     }
@@ -42,16 +51,34 @@ public class Rover {
         switch (direction) {
             case "N":
                 y++;
+
                 break;
             case "S":
                 y--;
                 break;
             case "E":
                 x++;
+
                 break;
             case "W":
                 x--;
+
                 break;
+        }
+        handleOutofBoundryMovement();
+    }
+
+    private void handleOutofBoundryMovement() {
+        if (y >= xBoundry + 1) {
+            y -= yBoundry + 1;
+        }
+
+        if (x >= xBoundry + 1) {
+            x -= xBoundry + 1;
+        }
+
+        if (x < 0) {
+            x += xBoundry + 1;
         }
     }
 
