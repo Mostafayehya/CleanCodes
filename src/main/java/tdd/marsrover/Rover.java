@@ -1,13 +1,13 @@
 package tdd.marsrover;
 
-import tdd.marsrover.exceptions.IllegalRoverCommandExeption;
+import tdd.marsrover.exceptions.IllegalRoverCommandException;
 
 public class Rover {
     private String direction;
     private int y;
     private int x;
-    private int xBoundry = 5;
-    private int yBoundry = 5;
+    private int xBoundary = 5;
+    private int yBoundary = 5;
 
     public Rover(int x, int y, String direction) {
         this.x = x;
@@ -15,12 +15,12 @@ public class Rover {
         this.direction = direction;
     }
 
-    public Rover(int x, int y, String direction, int xBoundry, int yBoundry) {
+    public Rover(int x, int y, String direction, int xBoundary, int yBoundary) {
         this.x = x;
         this.y = y;
         this.direction = direction;
-        this.xBoundry = xBoundry;
-        this.yBoundry = yBoundry;
+        this.xBoundary = xBoundary;
+        this.yBoundary = yBoundary;
     }
 
 
@@ -42,7 +42,7 @@ public class Rover {
             } else if (command.equals("L") || command.equals("R")) {
                 rotate(command);
             } else {
-                throw new IllegalRoverCommandExeption();
+                throw new IllegalRoverCommandException();
             }
         }
     }
@@ -65,23 +65,23 @@ public class Rover {
 
                 break;
         }
-        handleOutofBoundryMovement();
+        handleOutOfBoundaryMovement();
     }
 
-    private void handleOutofBoundryMovement() {
-        if (y >= xBoundry + 1) {
-            y -= yBoundry + 1;
+    private void handleOutOfBoundaryMovement() {
+        if (y >= yBoundary + 1) {
+            y -= yBoundary + 1;
         }
 
-        if (x >= xBoundry + 1) {
-            x -= xBoundry + 1;
+        if (x >= xBoundary + 1) {
+            x -= xBoundary + 1;
         }
 
         if (x < 0) {
-            x += xBoundry + 1;
+            x += xBoundary + 1;
         }
         if (y < 0) {
-            y += yBoundry + 1;
+            y += yBoundary + 1;
         }
     }
 
