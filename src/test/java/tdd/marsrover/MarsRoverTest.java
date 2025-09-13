@@ -94,33 +94,84 @@ public class MarsRoverTest {
     }
 
     @Test
-    public void roverWestBoundryTest(){
-        Rover rover = new Rover(0, 0, "N",5,5);
+    public void roverWestBoundryTest() {
+        Rover rover = new Rover(0, 0, "N", 5, 5);
         rover.doCommand("LM");
         assertEquals(5, rover.getX());
         assertEquals(0, rover.getY());
     }
 
     @Test
-    public void roverHitEastBoundryTest(){
-        Rover rover = new Rover(5, 0, "N",5,5);
+    public void roverHitEastBoundryTest() {
+        Rover rover = new Rover(5, 0, "N", 5, 5);
         rover.doCommand("RM");
         assertEquals(0, rover.getX());
         assertEquals(0, rover.getY());
     }
 
     @Test
-    public void roverHitNorthBoundryTest(){
+    public void roverHitNorthBoundryTest() {
         Rover rover = new Rover(0, 5, "N");
         rover.doCommand("M");
         assertEquals(0, rover.getX());
         assertEquals(0, rover.getY());
     }
+
     @Test
-    public void roverHitSouthBoundryTest(){
+    public void roverHitSouthBoundryTest() {
         Rover rover = new Rover(0, 0, "N");
         rover.doCommand("LLM");
         assertEquals(0, rover.getX());
         assertEquals(5, rover.getY());
     }
+
+    @Test
+    public void shouldTurnLeftFromNorth() {
+        Direction direction = Direction.NORTH;
+        assertEquals(Direction.WEST, direction.turnLeft());
+    }
+
+    @Test
+    public void shouldTurnLeftFromWest() {
+        Direction direction = Direction.WEST;
+        assertEquals(Direction.SOUTH, direction.turnLeft());
+    }
+
+    @Test
+    public void shouldTurnLeftFromSouth() {
+        Direction direction = Direction.SOUTH;
+        assertEquals(Direction.EAST, direction.turnLeft());
+    }
+
+    @Test
+    public void shouldTurnLeftFromEast() {
+        Direction direction = Direction.EAST;
+        assertEquals(Direction.NORTH, direction.turnLeft());
+    }
+
+    @Test
+    public void shouldTurnRightFromNorth(){
+        Direction direction = Direction.NORTH;
+        assertEquals(Direction.EAST, direction.turnRight());
+    }
+
+    @Test
+    public void shouldTurnRightFromEast(){
+        Direction direction = Direction.EAST;
+        assertEquals(Direction.SOUTH, direction.turnRight());
+    }
+
+    @Test
+    public void shouldTurnRightFromSouth(){
+        Direction direction= Direction.SOUTH;
+        assertEquals(Direction.WEST,direction.turnRight());
+    }
+
+    @Test
+    public void shouldTurnRightFromWest(){
+        Direction direction= Direction.WEST;
+        assertEquals(Direction.NORTH, direction.turnRight());
+    }
+
+
 }
