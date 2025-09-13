@@ -80,6 +80,9 @@ public class Rover {
         if (x < 0) {
             x += xBoundry + 1;
         }
+        if (y < 0) {
+            y += yBoundry + 1;
+        }
     }
 
     private void rotate(String command) {

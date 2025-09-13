@@ -116,4 +116,11 @@ public class MarsRoverTest {
         assertEquals(0, rover.getX());
         assertEquals(0, rover.getY());
     }
+    @Test
+    public void roverHitSouthBoundryTest(){
+        Rover rover = new Rover(0, 0, "N");
+        rover.doCommand("LLM");
+        assertEquals(0, rover.getX());
+        assertEquals(5, rover.getY());
+    }
 }
