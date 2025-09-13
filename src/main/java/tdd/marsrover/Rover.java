@@ -3,19 +3,19 @@ package tdd.marsrover;
 import tdd.marsrover.exceptions.IllegalRoverCommandException;
 
 public class Rover {
-    private String direction;
+    private Direction direction;
     private int y;
     private int x;
     private int xBoundary = 5;
     private int yBoundary = 5;
 
-    public Rover(int x, int y, String direction) {
+    public Rover(int x, int y, Direction direction) {
         this.x = x;
         this.y = y;
         this.direction = direction;
     }
 
-    public Rover(int x, int y, String direction, int xBoundary, int yBoundary) {
+    public Rover(int x, int y, Direction direction, int xBoundary, int yBoundary) {
         this.x = x;
         this.y = y;
         this.direction = direction;
@@ -24,12 +24,12 @@ public class Rover {
     }
 
 
-    public void setDirection(String direction) {
+    public void setDirection(Direction direction) {
         this.direction = direction;
     }
 
 
-    public String getDirection() {
+    public Direction getDirection() {
         return direction;
     }
 
@@ -49,18 +49,18 @@ public class Rover {
 
     private void move() {
         switch (direction) {
-            case "N":
+            case NORTH:
                 y++;
 
                 break;
-            case "S":
+            case SOUTH:
                 y--;
                 break;
-            case "E":
+            case EAST:
                 x++;
 
                 break;
-            case "W":
+            case WEST:
                 x--;
 
                 break;
@@ -87,37 +87,11 @@ public class Rover {
 
     private void rotate(String command) {
         if (command.equals("L")) {
-            switch (direction) {
-                case "N":
-                    direction = "W";
-                    break;
-                case "E":
-                    direction = "N";
-                    break;
-                case "S":
-                    direction = "E";
-                    break;
-                case "W":
-                    direction = "S";
-                    break;
-            }
+            direction = direction.turnLeft();
         }
 
         if (command.equals("R")) {
-            switch (direction) {
-                case "N":
-                    direction = "E";
-                    break;
-                case "E":
-                    direction = "S";
-                    break;
-                case "S":
-                    direction = "W";
-                    break;
-                case "W":
-                    direction = "N";
-                    break;
-            }
+            direction = direction.turnRight();
         }
     }
 

@@ -10,30 +10,30 @@ public class MarsRoverTest {
 
     @Test
     public void moveRoverToLeftTest() {
-        Rover rover = new Rover(0, 0, "N");
+        Rover rover = new Rover(0, 0, Direction.NORTH);
         rover.doCommand("L");
-        assertEquals("W", rover.getDirection());
+        assertEquals(Direction.WEST, rover.getDirection());
     }
 
     @Test
     public void moveRoverToRightTest() {
-        Rover rover = new Rover(0, 0, "N");
+        Rover rover = new Rover(0, 0, Direction.NORTH);
         rover.doCommand("R");
-        assertEquals("E", rover.getDirection());
+        assertEquals(Direction.EAST, rover.getDirection());
 
-        rover.setDirection("S");
+        rover.setDirection(Direction.SOUTH);
         rover.doCommand("R");
-        assertEquals("W", rover.getDirection());
+        assertEquals(Direction.WEST, rover.getDirection());
 
-        rover.setDirection("W");
+        rover.setDirection(Direction.WEST);
         rover.doCommand("R");
-        assertEquals("N", rover.getDirection());
+        assertEquals(Direction.NORTH, rover.getDirection());
 
     }
 
     @Test
     public void moveRoverTest() {
-        Rover rover = new Rover(0, 0, "N");
+        Rover rover = new Rover(0, 0, Direction.NORTH);
         rover.doCommand("M");
         assertEquals(1, rover.getY());
         assertEquals(0, rover.getX());
@@ -45,7 +45,7 @@ public class MarsRoverTest {
 
     @Test
     public void moveRoverAllDirectionsTest() {
-        Rover rover = new Rover(0, 0, "E");
+        Rover rover = new Rover(0, 0, Direction.EAST);
         rover.doCommand("M");
         assertEquals(1, rover.getX());
         assertEquals(0, rover.getY());
@@ -53,41 +53,41 @@ public class MarsRoverTest {
 
     @Test
     public void mutliCommandStringTest() {
-        Rover rover = new Rover(0, 0, "N");
+        Rover rover = new Rover(0, 0, Direction.NORTH);
         rover.doCommand("MM");
         assertEquals(2, rover.getY());
     }
 
     @Test
     public void marsRoverAcceptanceTest() {
-        Rover rover = new Rover(1, 2, "N");
+        Rover rover = new Rover(1, 2, Direction.NORTH);
         rover.doCommand("LMLMLMLMM");
         assertEquals(1, rover.getX());
         assertEquals(3, rover.getY());
-        assertEquals("N", rover.getDirection());
+        assertEquals(Direction.NORTH, rover.getDirection());
     }
 
     @Test
     public void marsRoverAcceptanceTest2() {
-        Rover rover = new Rover(3, 3, "E");
+        Rover rover = new Rover(3, 3, Direction.EAST);
         rover.doCommand("MMRMMRMRRM");
         assertEquals(5, rover.getX());
         assertEquals(1, rover.getY());
-        assertEquals("E", rover.getDirection());
+        assertEquals(Direction.EAST, rover.getDirection());
     }
 
     @Test
     public void rotateMoveTest() {
-        Rover rover = new Rover(1, 2, "N");
+        Rover rover = new Rover(1, 2, Direction.NORTH);
         rover.doCommand("LM");
         assertEquals(0, rover.getX());
         assertEquals(2, rover.getY());
-        assertEquals("W", rover.getDirection());
+        assertEquals(Direction.WEST, rover.getDirection());
     }
 
     @Test
     public void illegalMoveTest() {
-        Rover rover = new Rover(1, 2, "N");
+        Rover rover = new Rover(1, 2, Direction.NORTH);
         assertThrows(IllegalRoverCommandException.class,
                 () -> rover.doCommand("k")
         );
@@ -95,7 +95,7 @@ public class MarsRoverTest {
 
     @Test
     public void roverWestBoundryTest() {
-        Rover rover = new Rover(0, 0, "N", 5, 5);
+        Rover rover = new Rover(0, 0, Direction.NORTH, 5, 5);
         rover.doCommand("LM");
         assertEquals(5, rover.getX());
         assertEquals(0, rover.getY());
@@ -103,7 +103,7 @@ public class MarsRoverTest {
 
     @Test
     public void roverHitEastBoundryTest() {
-        Rover rover = new Rover(5, 0, "N", 5, 5);
+        Rover rover = new Rover(5, 0, Direction.NORTH, 5, 5);
         rover.doCommand("RM");
         assertEquals(0, rover.getX());
         assertEquals(0, rover.getY());
@@ -111,7 +111,7 @@ public class MarsRoverTest {
 
     @Test
     public void roverHitNorthBoundryTest() {
-        Rover rover = new Rover(0, 5, "N");
+        Rover rover = new Rover(0, 5, Direction.NORTH);
         rover.doCommand("M");
         assertEquals(0, rover.getX());
         assertEquals(0, rover.getY());
@@ -119,7 +119,7 @@ public class MarsRoverTest {
 
     @Test
     public void roverHitSouthBoundryTest() {
-        Rover rover = new Rover(0, 0, "N");
+        Rover rover = new Rover(0, 0, Direction.NORTH);
         rover.doCommand("LLM");
         assertEquals(0, rover.getX());
         assertEquals(5, rover.getY());
