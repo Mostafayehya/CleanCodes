@@ -1,4 +1,4 @@
-package tdd.oop.marsrover;
+package tdd.oop;
 
 public class Calculator {
 
